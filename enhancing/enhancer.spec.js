@@ -4,69 +4,88 @@ const enhancer = require("./enhancer.js");
 //items
 
 const item1 = {
-	name: "staff",
+	name: "Staff",
 	durability: 80,
 	enhancement: 5,
 };
 
 const item2 = {
-	name: "bow",
+	name: "Bow",
 	durability: 60,
-	enhancement: 20,
+	enhancement: 19,
 };
 
 const item3 = {
-	name: "sword",
+	name: "Sword",
 	durability: 30,
 	enhancement: 16,
 };
 
 const item4 = {
-	name: "knuckles",
+	name: "Knuckles",
 	durability: 100,
 	enhancement: 15,
 };
 
+const item5 = {
+	name: "Knife",
+	durability: 5,
+	enhancement: 0,
+};
+
 //tests
 
-describe("repair weapon works", function () {
-	item1.todo("repair works"),
-		function () {
-			//code here
-		};
+//passes
+describe("repair", function () {
+	it("repair returns item with 100 durability", function () {
+		const expectedDurability = 100;
+		const actualOutput = enhancer.repair(item1);
+		expect(actualOutput.durability).toBe(expectedDurability);
+	});
 });
 
-describe("succeed works", function () {
-	item1.todo("less than lvl 20 enhancement"),
-		function () {
-			//code here
-		};
+//passes
+describe("success", function () {
+	it("succeed add +1 to enhancement", function () {
+		const addEnhancement = item3.enhancement + 1;
+		const actualOutput = enhancer.succeed(item3);
+		expect(actualOutput.enhancement).toBe(addEnhancement);
+	});
 });
 
-describe("succeed works", function () {
-	item1.todo("lvl 20 enhancement"),
-		function () {
-			//code here
-		};
+//All pass
+describe("fail", () => {
+	//passes
+	it(" enhancement < 15 then durability - 5", () => {
+		const expectedDurability = item1.durability - 5;
+		const actualOutput = enhancer.fail(item1);
+		expect(actualOutput.durability).toBe(expectedDurability);
+	});
+	//passes
+	it("enhancement === 15 then durability -10", () => {
+		const expectedDurability = item4.durability - 10;
+		const actualOutput = enhancer.fail(item4);
+		expect(actualOutput.durability).toBe(expectedDurability);
+	});
+	//passes
+	it("enhancement > 15 then enhancement -1", () => {
+		const expectedEnhancement = item3.enhancement - 1;
+		const actualOutput = enhancer.fail(item3);
+		expect(actualOutput.enhancement).toBe(expectedEnhancement);
+	});
 });
 
-describe("fail works", function () {
-	item1.todo("fail with enhancement< 15"),
-		function () {
-			//code here
-		};
-});
+//passes
+describe("get", () => {
+	it("no name change for enhancment = 0", () => {
+		const expectedName = item5.name;
+		const actualOutput = enhancer.get(item5);
+		expect(actualOutput.name).toBe(expectedName);
+	});
 
-describe("fail works", function () {
-	item1.todo("fail with enhancement > 16"),
-		function () {
-			//code here
-		};
-});
-
-describe("fail works", function () {
-	item1.todo("fail with enhancement === 15"),
-		function () {
-			//code here
-		};
+	it('add + to enhancement and name for enhancment > 0', () => {
+		const expectedName = "+15 Knuckles"
+		const actualOutput = enhancer.get(item4)
+		expect(actualOutput.name).toBe(expectedName)
+	})
 });

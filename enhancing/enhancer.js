@@ -4,7 +4,7 @@ module.exports = {
 	repair,
 	get,
 };
-
+//done and passed
 function succeed(item) {
 	//if enhancement is 20 do nothing
 	const successItem = item;
@@ -14,8 +14,7 @@ function succeed(item) {
 		//if success add +1 to enhancement
 		successItem.enhancement++;
 		return { ...successItem };
-  }
-  
+	}
 }
 
 function fail(item) {
@@ -24,19 +23,18 @@ function fail(item) {
 	//if enhancment >=16 then enhancement -1
 	const failItem = item;
 	if (failItem.enhancement < 15) {
-		failItem.durability - 5;
-		return { ...failItem };
-	} else if (failItem.enhancement >= 16) {
+		failItem.durability = failItem.durability - 5;
+	} else if (failItem.enhancement >= 15) {
 		if (failItem.enhancement === 15) {
-			failItem.durability - 10;
-			return { ...failItem };
+			failItem.durability = failItem.durability - 10;
 		} else {
-			failItem.enhancement - 1;
-			return { ...failItem };
+			failItem.enhancement = failItem.enhancement - 1;
 		}
 	}
+	return { ...failItem };
 }
 
+//DONE
 function repair(item) {
 	//return item with durability set to 100
 	//if durability = 100 do nothing (send alert?)
@@ -47,5 +45,10 @@ function repair(item) {
 
 //STRETCH
 function get(item) {
+	if (item.enhancement === 0){
+		return { ...item}
+	}else if (item.enhancement > 0){
+		item.name = `+${item.enhancement} ${item.name}`
+	}
 	return { ...item };
 }
