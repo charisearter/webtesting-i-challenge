@@ -14,7 +14,8 @@ function succeed(item) {
 		//if success add +1 to enhancement
 		successItem.enhancement++;
 		return { ...successItem };
-	}
+  }
+  
 }
 
 function fail(item) {
